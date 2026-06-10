@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="Tickets.Api/Tickets.Api.csproj" />
-  <Project Path="Tickets.Tests/Tickets.Tests.csproj" />
+  <Project Path="src/Tickets.Api/Tickets.Api.csproj" />
+  <Project Path="tests/Tickets.Tests/Tickets.Tests.csproj" />
 </Solution>
