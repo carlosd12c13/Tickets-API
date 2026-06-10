@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
-using Tickets.Api.Application.DTOs.Auth;
-using Tickets.Api.Application.Interfaces;
+using Tickets.Application.DTOs.Auth;
+using Tickets.Application.Interfaces;
 
 namespace Tickets.Api.Controllers;
 

@@ -1,18 +1,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.RateLimiting;
-using Tickets.Api.Application.Interfaces;
-using Tickets.Api.Application.Services;
-using Tickets.Api.Infrastructure.Auth;
-using Tickets.Api.Infrastructure.Data;
+using Tickets.Application.Interfaces;
+using Tickets.Application.Services;
+using Tickets.Api.Services;
+using Tickets.Infrastructure;
+using Tickets.Infrastructure.Auth;
+using Tickets.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.Configure<JwtOptions>(
-    builder.Configuration.GetSection("Jwt")
-);
 
 var jwtOptions = builder.Configuration
     .GetSection("Jwt")
@@ -71,13 +68,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 var app = builder.Build();
