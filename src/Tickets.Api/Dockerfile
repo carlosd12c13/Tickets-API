@@ -12,10 +12,13 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Tickets.Api.csproj", "."]
-RUN dotnet restore "./Tickets.Api.csproj"
+COPY ["src/Tickets.Api/Tickets.Api.csproj", "src/Tickets.Api/"]
+COPY ["src/Tickets.Application/Tickets.Application.csproj", "src/Tickets.Application/"]
+COPY ["src/Tickets.Domain/Tickets.Domain.csproj", "src/Tickets.Domain/"]
+COPY ["src/Tickets.Infrastructure/Tickets.Infrastructure.csproj", "src/Tickets.Infrastructure/"]
+RUN dotnet restore "./src/Tickets.Api/Tickets.Api.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/src/Tickets.Api"
 RUN dotnet build "./Tickets.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Esta fase se usa para publicar el proyecto de servicio que se copiará en la fase final.
